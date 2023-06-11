@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "name": "Prodotto 1",
+            "price": 10,
+            "description":"Description 1",
+            "quantity": 3,
+            "color": "red",
+            "editable": "true"
+        },
+        {
+            "name": "Prodotto 2",
+            "price": 15,
+            "description":"Description 2",
+            "quantity": 5,
+            "color": "blue",
+            "editable": "true"
+        },
+        {
+            "name": "Prodotto 3",
+            "price": 20,
+            "description":"Description 3",
+            "quantity": 1,
+            "color": "green",
+            "editable": "true"
+        }
+    ]
+}

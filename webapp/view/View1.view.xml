@@ -1,0 +1,55 @@
+<mvc:View controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Page title="{i18n>titleView1}">
+        <content>
+            <Button text="Message" press="showMessageOnClick"
+                class="sapUiSmallMargin"></Button>
+            <Button text="NavTo" press="navToViewOnClick" class="sapUiSmallMargin"></Button>
+            <List items="{data>/data}">
+                <ObjectListItem
+                    press=".onItemSelected"
+                    type="Active"
+                    title="{data>name}"
+                    number="{data>price}"
+                    />
+            </List>
+            <Panel id="productDetailsPanel" headerText="{i18n>panel4HeaderText}"
+                class="sapUiResponsiveMargin" width="auto">
+                <form:SimpleForm editable="true" layout="ColumnLayout"
+                    binding="{data>/selectedProduct}">
+                    <Label text="{i18n>description}" />
+                    <Input value="{data>description}" />
+                    <Label text="{i18n>name}" />
+                    <Input value="{data>name}" />
+                    <Label text="{i18n>price}" />
+                    <Input value="{data>price}" />
+                    <Label text="{i18n>quantity}" />
+                    <Input value="{data>quantity}" />
+                    <Label text="{i18n>color}" />
+                    <Input value="{data>color}"   />
+                </form:SimpleForm>
+            </Panel>
+            <Panel headerText="Aggiungi Nuovo Prodotto" class="sapUiResponsiveMargin" width="auto">
+                <form:SimpleForm editable="true" layout="ColumnLayout">
+                    <Label text="Nome" />
+                    <Input id="newProductName" value="" required="true" />
+                    <Label text="Prezzo" />
+                    <Input id="newProductPrice" value="" required="true" />
+                    <Label text="Descrizione" />
+                    <Input id="newProductDescription" value="" required="true" />
+                    <Label text="Quantità" />
+                    <Input id="newProductQuantity" value="" required="true" />
+                    <Label text="Colore" />
+                    <Input id="newProductColor" value="" required="true" />
+                    <Button text="Aggiungi" press=".onAddProduct" />
+                </form:SimpleForm>
+            </Panel>
+
+
+        </content>
+    </Page>
+</mvc:View>

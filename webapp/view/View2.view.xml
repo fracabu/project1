@@ -1,0 +1,87 @@
+<mvc:View controllerName="project1.controller.View2"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout">
+    <Page id="page" title="{i18n>titleView2}">
+        <content>
+            <Button
+                id="btnBack"
+                icon="sap-icon://close-command-field"
+                press="onGoBackPress"
+                class="sapUiSmallMargin" />
+
+            <layout:Grid defaultSpan="XL2 L2 M2 S12" >
+                <form:Form id="myForm"
+                    editable="false"
+                    xmlns:mvc="sap.ui.core.mvc"
+                    xmlns="sap.m"
+                    xmlns:f="sap.f"
+                    xmlns:core="sap.ui.core"
+                    xmlns:form="sap.ui.layout.form"
+                    xmlns:layout="sap.ui.layout">
+                    <form:layout>
+                        <form:ResponsiveGridLayout
+                            labelSpanXL="6"
+                            labelSpanL="5"
+                            labelSpanM="2"
+                            labelSpanS="12"
+                            adjustLabelSpan="false"
+                            emptySpanXL="0"
+                            emptySpanL="0"
+                            emptySpanM="0"
+                            emptySpanS="0"
+                            columnsXL="2"
+                            columnsL="6"
+                            columnsM="3"
+                            singleContainerFullSize="false" />
+                    </form:layout>
+                    <form:formContainers >
+                        <form:FormContainer title="Name">
+                            <form:formElements>
+                                <form:FormElement>
+                                    <form:fields>
+                                        <Input value="{/name}"  />
+                                    </form:fields>
+                                </form:FormElement>
+                            </form:formElements>
+                        </form:FormContainer>
+                        <form:FormContainer title="Surname">
+                            <form:formElements>
+                                <form:FormElement>
+                                    <form:fields>
+                                        <Input value="{/surname}" />
+                                    </form:fields>
+                                </form:FormElement>
+                            </form:formElements>
+                        </form:FormContainer>
+                        <form:FormContainer title="Email">
+                            <form:formElements>
+                                <form:FormElement>
+                                    <form:fields>
+                                        <Input value="{/email}" />
+                                    </form:fields>
+                                </form:FormElement>
+                            </form:formElements>
+                        </form:FormContainer>
+                        <form:FormContainer>
+                            <form:formElements>
+                                <form:FormElement>
+                                    <layout:Grid>
+                                        <layout:content>
+                                            <Button icon="sap-icon://save"
+                                                press="onSavePress"
+                                                class="sapUiSmallMargin"
+                                                width="100px" />
+                                        </layout:content>
+                                    </layout:Grid>
+                                </form:FormElement>
+                            </form:formElements>
+                        </form:FormContainer>
+                    </form:formContainers>
+                </form:Form>
+            </layout:Grid>
+        </content>
+    </Page>
+</mvc:View>
