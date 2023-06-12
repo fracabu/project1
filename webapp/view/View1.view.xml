@@ -6,18 +6,17 @@
 >
     <Page title="{i18n>titleView1}">
         <content>
-            <Button text="Message" press="showMessageOnClick"
-                class="sapUiSmallMargin"></Button>
-            <Button text="NavTo" press="navToViewOnClick" class="sapUiSmallMargin"></Button>
+            <Button text="Message" press="showMessageOnClick" class="sapUiSmallMargin" />
+            <Button text="NavTo" press="navToViewOnClick" class="sapUiSmallMargin" />
             <List items="{data>/data}">
                 <ObjectListItem
                     press=".onItemSelected"
                     type="Active"
                     title="{data>name}"
                     number="{data>price}"
-                    />
+                />
             </List>
-            <Panel id="productDetailsPanel" headerText="{i18n>panel4HeaderText}"
+            <Panel id="productDetailsPanel" headerText="{i18n>productDetails}"
                 class="sapUiResponsiveMargin" width="auto">
                 <form:SimpleForm editable="true" layout="ColumnLayout"
                     binding="{data>/selectedProduct}">
@@ -30,26 +29,33 @@
                     <Label text="{i18n>quantity}" />
                     <Input value="{data>quantity}" />
                     <Label text="{i18n>color}" />
-                    <Input value="{data>color}"   />
+                    <Input value="{data>color}" />
+
                 </form:SimpleForm>
             </Panel>
-            <Panel headerText="Aggiungi Nuovo Prodotto" class="sapUiResponsiveMargin" width="auto">
+            <Panel headerText="{i18n>addNewProduct}" class="sapUiResponsiveMargin" width="auto">
                 <form:SimpleForm editable="true" layout="ColumnLayout">
                     <Label text="Nome" />
-                    <Input id="newProductName" value="" required="true" />
+                    <Input id="newProductName" value="" required="false" />
                     <Label text="Prezzo" />
-                    <Input id="newProductPrice" value="" required="true" />
+                    <Input id="newProductPrice" value="" required="false" />
                     <Label text="Descrizione" />
-                    <Input id="newProductDescription" value="" required="true" />
+                    <Input id="newProductDescription" value="" required="false" />
                     <Label text="Quantità" />
-                    <Input id="newProductQuantity" value="" required="true" />
+                    <Input id="newProductQuantity" value="" required="false" />
                     <Label text="Colore" />
-                    <Input id="newProductColor" value="" required="true" />
-                    <Button text="Aggiungi" press=".onAddProduct" />
+                    <Input id="newProductColor" value="" required="false" />
+
                 </form:SimpleForm>
+                <Button icon="sap-icon://add" press=".onAddProduct"
+                    class="sapUiSmallMargin sapUiHighlight" />
+                <Button icon="sap-icon://edit" press=".onUpdateProduct"
+                    class="sapUiSmallMargin sapUiSuccess" />
+                <Button icon="sap-icon://delete" press=".onDeleteProduct"
+                    class="sapUiSmallMargin sapUiNegative" />
+
+
             </Panel>
-
-
         </content>
     </Page>
 </mvc:View>

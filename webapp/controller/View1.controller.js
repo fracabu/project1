@@ -15,8 +15,7 @@ sap.ui.define([
                 console.log("Model Data:", oModel.getData());
             });
             this.getView().setModel(oModel, "data");
-        }
-        ,
+        },
         showMessageOnClick: function () {
             var sMessage = "Questo è un messaggio di testo.";
             MessageToast.show(sMessage);
@@ -69,11 +68,35 @@ sap.ui.define([
             this.byId("newProductDescription").setValue("");
             this.byId("newProductQuantity").setValue("");
             this.byId("newProductColor").setValue("");
+        },
+        onUpdateProduct: function () {
+            var oModel = this.getView().getModel("data");
+            var oSelectedProduct = oModel.getProperty("/selectedProduct");
+            if (oSelectedProduct) {
+                // Effettua l'aggiornamento dei dati
+                // Esempio: oSelectedProduct.name = "Nuovo nome";
+                oModel.refresh(); // Aggiorna la vista
+                MessageToast.show("Prodotto aggiornato");
+            } else {
+                MessageToast.show("Seleziona un prodotto da aggiornare");
+            }
+        },
+        onDeleteProduct: function () {
+            var oModel = this.getView().getModel("data");
+            var oSelectedProduct = oModel.getProperty("/selectedProduct");
+            if (oSelectedProduct) {
+                var aProducts = oModel.getProperty("/data");
+                var nIndex = aProducts.indexOf(oSelectedProduct);
+                if (nIndex !== -1) {
+                    aProducts.splice(nIndex, 1);
+                    oModel.setProperty("/data", aProducts);
+                    oModel.setProperty("/selectedProduct", null); // Deseleziona il prodotto
+                    oModel.refresh(); // Aggiorna la vista
+                    MessageToast.show("Prodotto eliminato");
+                }
+            } else {
+                MessageToast.show("Seleziona un prodotto da eliminare");
+            }
         }
-        
-
-        
-        
-        
     });
 });
