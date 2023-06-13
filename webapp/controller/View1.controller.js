@@ -8,6 +8,9 @@ sap.ui.define([
     "use strict";
 
     return Controller.extend("project1.controller.View1", {
+        // Variabile per tenere traccia dello stato della selezione del prodotto
+        bProductSelected: false,
+
         onInit: function () {
             // Creazione del modello dei dati JSON
             var oModel = new JSONModel("../model/data.json");
@@ -31,6 +34,8 @@ sap.ui.define([
                 var oData = oContext.getObject();
                 var oProductModel = this.getView().getModel("data");
                 oProductModel.setProperty("/selectedProduct", oData);
+                // Imposta la variabile bProductSelected su true quando viene selezionato un prodotto
+                this.bProductSelected = true;
             } else {
                 console.error("Binding Context not found");
             }
@@ -41,13 +46,13 @@ sap.ui.define([
             var sNewProductDescription = this.byId("newProductDescription").getValue();
             var sNewProductQuantity = this.byId("newProductQuantity").getValue();
             var sNewProductColor = this.byId("newProductColor").getValue();
-        
+
             // Verifica se i campi obbligatori sono stati compilati
             if (!sNewProductName || !sNewProductPrice || !sNewProductDescription || !sNewProductQuantity || !sNewProductColor) {
                 MessageToast.show("Compilare tutti i campi obbligatori");
                 return;
             }
-        
+
             var oModel = this.getView().getModel("data");
             var aProducts = oModel.getProperty("/data");
             var oNewProduct = {
@@ -59,9 +64,9 @@ sap.ui.define([
             };
             aProducts.push(oNewProduct);
             oModel.setProperty("/data", aProducts);
-        
+
             MessageToast.show("Nuovo prodotto aggiunto");
-        
+
             // Reset dei valori degli input
             this.byId("newProductName").setValue("");
             this.byId("newProductPrice").setValue("");
@@ -72,15 +77,19 @@ sap.ui.define([
         onUpdateProduct: function () {
             var oModel = this.getView().getModel("data");
             var oSelectedProduct = oModel.getProperty("/selectedProduct");
+
             if (oSelectedProduct) {
                 // Effettua l'aggiornamento dei dati
                 // Esempio: oSelectedProduct.name = "Nuovo nome";
                 oModel.refresh(); // Aggiorna la vista
-                MessageToast.show("Prodotto aggiornato");
+                MessageToast.show("Seleziona un prodotto da modificare");
             } else {
-                MessageToast.show("Seleziona un prodotto da aggiornare");
+                MessageToast.show("Seleziona un prodotto da modificare");
             }
         },
+
+
+
         onDeleteProduct: function () {
             var oModel = this.getView().getModel("data");
             var oSelectedProduct = oModel.getProperty("/selectedProduct");
@@ -97,6 +106,20 @@ sap.ui.define([
             } else {
                 MessageToast.show("Seleziona un prodotto da eliminare");
             }
-        }
+        },
+        onSaveProduct: function () {
+            var oModel = this.getView().getModel("data");
+            var oSelectedProduct = oModel.getProperty("/selectedProduct");
+
+            if (oSelectedProduct) {
+                // Effettua il salvataggio delle modifiche
+                
+
+                MessageToast.show("Modifiche salvate");
+            } else {
+            
+                MessageToast.show("Non ci sono modifiche da salvare");
+            }
+        },
     });
 });

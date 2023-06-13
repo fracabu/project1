@@ -48,11 +48,13 @@
 
                 </form:SimpleForm>
                 <Button icon="sap-icon://add" press=".onAddProduct"
-                    class="sapUiSmallMargin sapUiHighlight" />
+                    class="sapUiSmallMargin  "  />
                 <Button icon="sap-icon://edit" press=".onUpdateProduct"
-                    class="sapUiSmallMargin sapUiSuccess" />
+                    class="sapUiSmallMargin "  />
                 <Button icon="sap-icon://delete" press=".onDeleteProduct"
-                    class="sapUiSmallMargin sapUiNegative" />
+                    class="sapUiSmallMargin " />
+                    <Button icon="sap-icon://save" press=".onSaveProduct" class="sapUiSmallMargin sapUiMediumMarginBegin sapUiSuccess"  />
+
 
 
             </Panel>
