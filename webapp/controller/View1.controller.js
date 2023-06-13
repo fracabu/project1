@@ -18,7 +18,8 @@ sap.ui.define([
                 console.log("Model Data:", oModel.getData());
             });
             this.getView().setModel(oModel, "data");
-        },
+        }
+        ,
         showMessageOnClick: function () {
             var sMessage = "Questo è un messaggio di testo.";
             MessageToast.show(sMessage);
@@ -73,6 +74,7 @@ sap.ui.define([
             this.byId("newProductDescription").setValue("");
             this.byId("newProductQuantity").setValue("");
             this.byId("newProductColor").setValue("");
+<<<<<<< HEAD
         },
         onUpdateProduct: function () {
             var oModel = this.getView().getModel("data");
@@ -121,5 +123,13 @@ sap.ui.define([
                 MessageToast.show("Non ci sono modifiche da salvare");
             }
         },
+=======
+        }
+        
+
+        
+        
+        
+>>>>>>> parent of 9b01eed (add mockService and crud)
     });
 });

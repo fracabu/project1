@@ -29,12 +29,6 @@ server:
       afterMiddleware: compression
       configuration:
         ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
-        backend:
-          - path:
-            url:
-            client:
-          - path: /V2
-            url: https://services.odata.org
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
