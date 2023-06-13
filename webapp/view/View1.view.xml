@@ -47,7 +47,6 @@
                     <Input id="newProductColor" value="" required="true" />
                     <Button text="Aggiungi" press=".onAddProduct" />
                 </form:SimpleForm>
-<<<<<<< HEAD
                 <Button icon="sap-icon://add" press=".onAddProduct"
                     class="sapUiSmallMargin  "  />
                 <Button icon="sap-icon://edit" press=".onUpdateProduct"
@@ -58,8 +57,6 @@
 
 
 
-=======
->>>>>>> parent of 9b01eed (add mockService and crud)
             </Panel>
 
 
