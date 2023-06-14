@@ -18,16 +18,18 @@ sap.ui.define([
                 console.log("Model Data:", oModel.getData());
             });
             this.getView().setModel(oModel, "data");
-        }
-        ,
+        },
+
         showMessageOnClick: function () {
             var sMessage = "Questo è un messaggio di testo.";
             MessageToast.show(sMessage);
         },
+
         navToViewOnClick: function () {
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.navTo("RouteView2");
         },
+
         onItemSelected: function (oEvent) {
             var oSelectedItem = oEvent.getSource();
             var oContext = oSelectedItem.getBindingContext("data");
@@ -41,6 +43,7 @@ sap.ui.define([
                 console.error("Binding Context not found");
             }
         },
+
         onAddProduct: function () {
             var sNewProductName = this.byId("newProductName").getValue();
             var sNewProductPrice = this.byId("newProductPrice").getValue();
@@ -75,10 +78,10 @@ sap.ui.define([
             this.byId("newProductQuantity").setValue("");
             this.byId("newProductColor").setValue("");
         },
+
         onUpdateProduct: function () {
             var oModel = this.getView().getModel("data");
             var oSelectedProduct = oModel.getProperty("/selectedProduct");
-
             if (oSelectedProduct) {
                 // Effettua l'aggiornamento dei dati
                 // Esempio: oSelectedProduct.name = "Nuovo nome";
@@ -88,8 +91,6 @@ sap.ui.define([
                 MessageToast.show("Seleziona un prodotto da modificare");
             }
         },
-
-
 
         onDeleteProduct: function () {
             var oModel = this.getView().getModel("data");
@@ -108,19 +109,32 @@ sap.ui.define([
                 MessageToast.show("Seleziona un prodotto da eliminare");
             }
         },
+
         onSaveProduct: function () {
             var oModel = this.getView().getModel("data");
             var oSelectedProduct = oModel.getProperty("/selectedProduct");
-
             if (oSelectedProduct) {
                 // Effettua il salvataggio delle modifiche
-                
-
                 MessageToast.show("Modifiche salvate");
             } else {
-            
                 MessageToast.show("Non ci sono modifiche da salvare");
             }
         },
+        onSearchProduct: function (oEvent) {
+            var sQuery = oEvent.getParameter("query");
+            var oModel = this.getView().getModel("data");
+            var aProducts = oModel.getProperty("/data");
+            var aFilteredProducts = aProducts.filter(function (oProduct) {
+                // Effettua la ricerca nel campo 'name' del prodotto
+                return oProduct.name.toLowerCase().includes(sQuery.toLowerCase());
+            });
+            oModel.setProperty("/filteredData", aFilteredProducts);
+        }
+        
+        
+        
+
+        
+        
     });
 });

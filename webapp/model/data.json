@@ -1,7 +1,7 @@
 {
     "data": [
         {
-            "name": "Prodotto 1",
+            "name": "mele",
             "price": 10,
             "description":"Description 1",
             "quantity": 3,
@@ -9,7 +9,7 @@
             "editable": "true"
         },
         {
-            "name": "Prodotto 2",
+            "name": "pere",
             "price": 15,
             "description":"Description 2",
             "quantity": 5,
@@ -17,7 +17,7 @@
             "editable": "true"
         },
         {
-            "name": "Prodotto 3",
+            "name": "banane",
             "price": 20,
             "description":"Description 3",
             "quantity": 1,

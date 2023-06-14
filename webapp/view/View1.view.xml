@@ -6,16 +6,27 @@
 >
     <Page title="{i18n>titleView1}">
         <content>
+
             <Button text="Message" press="showMessageOnClick"
                 class="sapUiSmallMargin"></Button>
             <Button text="NavTo" press="navToViewOnClick" class="sapUiSmallMargin"></Button>
+            <SearchField liveChange="onSearchProduct" width="100%" placeholder="Cerca prodotti..." />
             <List items="{data>/data}">
                 <ObjectListItem
                     press=".onItemSelected"
                     type="Active"
                     title="{data>name}"
                     number="{data>price}"
-                    />
+                />
+            </List>
+            <List items="{data>/filteredData}">
+                <ObjectListItem
+                    press=".onItemSelected"
+                    type="Active"
+                    title="{data>name}"
+                    number="{data>price}"
+                    
+                />
             </List>
             <Panel id="productDetailsPanel" headerText="{i18n>panel4HeaderText}"
                 class="sapUiResponsiveMargin" width="auto">
@@ -30,7 +41,7 @@
                     <Label text="{i18n>quantity}" />
                     <Input value="{data>quantity}" />
                     <Label text="{i18n>color}" />
-                    <Input value="{data>color}"   />
+                    <Input value="{data>color}" />
                 </form:SimpleForm>
             </Panel>
             <Panel headerText="Aggiungi Nuovo Prodotto" class="sapUiResponsiveMargin" width="auto">
@@ -45,16 +56,15 @@
                     <Input id="newProductQuantity" value="" required="true" />
                     <Label text="Colore" />
                     <Input id="newProductColor" value="" required="true" />
-                    <Button text="Aggiungi" press=".onAddProduct" />
+
                 </form:SimpleForm>
                 <Button icon="sap-icon://add" press=".onAddProduct"
-                    class="sapUiSmallMargin  "  />
+                    class="sapUiSmallMargin  " />
                 <Button icon="sap-icon://edit" press=".onUpdateProduct"
-                    class="sapUiSmallMargin "  />
+                    class="sapUiSmallMargin " />
                 <Button icon="sap-icon://delete" press=".onDeleteProduct"
                     class="sapUiSmallMargin " />
-                    <Button icon="sap-icon://save" press=".onSaveProduct" class="sapUiSmallMargin sapUiMediumMarginBegin sapUiSuccess"  />
-
+                <Button icon="sap-icon://save" press=".onSaveProduct" class="sapUiSmallMargin" />
 
 
             </Panel>
