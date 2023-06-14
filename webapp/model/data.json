@@ -6,7 +6,9 @@
             "description":"Description 1",
             "quantity": 3,
             "color": "red",
-            "editable": "true"
+            "editable": "true",
+            "currency": "EUR"
+            
         },
         {
             "name": "pere",
@@ -14,7 +16,8 @@
             "description":"Description 2",
             "quantity": 5,
             "color": "blue",
-            "editable": "true"
+            "editable": "true",
+            "currency": "EUR"
         },
         {
             "name": "banane",
@@ -22,7 +25,8 @@
             "description":"Description 3",
             "quantity": 1,
             "color": "green",
-            "editable": "true"
+            "editable": "true",
+            "currency": "EUR"
         }
     ]
 }

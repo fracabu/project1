@@ -2,32 +2,47 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
-    xmlns:form="sap.ui.layout.form"
->
+    xmlns:form="sap.ui.layout.form">
     <Page title="{i18n>titleView1}">
         <content>
-
-            <Button text="Message" press="showMessageOnClick"
-                class="sapUiSmallMargin"></Button>
-            <Button text="NavTo" press="navToViewOnClick" class="sapUiSmallMargin"></Button>
-            <SearchField liveChange="onSearchProduct" width="100%" placeholder="Cerca prodotti..." />
+            <Button text="Message" press="showMessageOnClick" class="sapUiSmallMargin" />
+            <Button text="NavTo" press="navToViewOnClick" class="sapUiSmallMargin" />
+            <Button text="Ordina Prodotti" press="onSortProducts" class="sapUiSmallMargin" />
+            <Button text="Filtra Prodotti" press="onOpenFilterDialog" class="sapUiSmallMargin" />
+            <!-- lista prodotti da data.json -->
             <List items="{data>/data}">
                 <ObjectListItem
-                    press=".onItemSelected"
+                    press="onItemSelected"
                     type="Active"
                     title="{data>name}"
-                    number="{data>price}"
+                    number="{
+            parts: [{path: 'data>price'}, {path: 'data>currency'}],
+            formatter: '.formatPrice'
+        }"
                 />
             </List>
-            <List items="{data>/filteredData}">
-                <ObjectListItem
-                    press=".onItemSelected"
-                    type="Active"
-                    title="{data>name}"
-                    number="{data>price}"
-                    
-                />
-            </List>
+            <!-- Panel ricerca prodotti -->
+            <Panel headerText="{i18n>searchProductsPanel}" class="sapUiResponsiveMargin"
+                width="auto">
+                <SearchField liveChange="onSearchProduct" width="100%"
+                    placeholder="Cerca prodotti..." />
+                <!-- lista risultati ricerca  -->
+                <List items="{data>/searchResults}">
+                    <ObjectListItem
+                        press="onSearchItemSelected"
+                        type="Active"
+                        title="{data>name}"
+                        number="{
+            parts: [
+                { path: 'data>price' },
+                { path: 'data>currency' }
+            ],
+            formatter: '.formatPrice'
+        }"
+                    />
+                </List>
+            </Panel>
+            <!-- Panel dettagli prodotto -->
             <Panel id="productDetailsPanel" headerText="{i18n>panel4HeaderText}"
                 class="sapUiResponsiveMargin" width="auto">
                 <form:SimpleForm editable="true" layout="ColumnLayout"
@@ -44,6 +59,7 @@
                     <Input value="{data>color}" />
                 </form:SimpleForm>
             </Panel>
+            <!-- Panel aggiungi nuovo prodotto -->
             <Panel headerText="Aggiungi Nuovo Prodotto" class="sapUiResponsiveMargin" width="auto">
                 <form:SimpleForm editable="true" layout="ColumnLayout">
                     <Label text="Nome" />
@@ -56,20 +72,13 @@
                     <Input id="newProductQuantity" value="" required="true" />
                     <Label text="Colore" />
                     <Input id="newProductColor" value="" required="true" />
-
                 </form:SimpleForm>
-                <Button icon="sap-icon://add" press=".onAddProduct"
-                    class="sapUiSmallMargin  " />
-                <Button icon="sap-icon://edit" press=".onUpdateProduct"
-                    class="sapUiSmallMargin " />
-                <Button icon="sap-icon://delete" press=".onDeleteProduct"
-                    class="sapUiSmallMargin " />
-                <Button icon="sap-icon://save" press=".onSaveProduct" class="sapUiSmallMargin" />
-
-
+                <Button icon="sap-icon://add" press="onAddProduct" class="sapUiSmallMargin" />
+                <Button icon="sap-icon://edit" press="onUpdateProduct" class="sapUiSmallMargin" />
+                <Button icon="sap-icon://delete" press="onDeleteProduct" class="sapUiSmallMargin" />
+                <Button icon="sap-icon://save" press="onSaveProduct" class="sapUiSmallMargin" />
             </Panel>
-
-
         </content>
+        
     </Page>
 </mvc:View>

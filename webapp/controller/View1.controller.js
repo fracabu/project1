@@ -3,14 +3,11 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/core/routing/Router",
     "sap/ui/model/json/JSONModel",
-    "sap/m/ObjectListItem"
-], function (Controller, MessageToast, Router, JSONModel, ObjectListItem) {
+    "sap/ui/model/type/Currency"
+], function (Controller, MessageToast, Router, JSONModel,) {
     "use strict";
 
     return Controller.extend("project1.controller.View1", {
-        // Variabile per tenere traccia dello stato della selezione del prodotto
-        bProductSelected: false,
-
         onInit: function () {
             // Creazione del modello dei dati JSON
             var oModel = new JSONModel("../model/data.json");
@@ -18,6 +15,8 @@ sap.ui.define([
                 console.log("Model Data:", oModel.getData());
             });
             this.getView().setModel(oModel, "data");
+            // Inizializzazione dell'istanza del Dialog di filtro a null
+            this._oFilterDialog = null;
         },
 
         showMessageOnClick: function () {
@@ -37,8 +36,6 @@ sap.ui.define([
                 var oData = oContext.getObject();
                 var oProductModel = this.getView().getModel("data");
                 oProductModel.setProperty("/selectedProduct", oData);
-                // Imposta la variabile bProductSelected su true quando viene selezionato un prodotto
-                this.bProductSelected = true;
             } else {
                 console.error("Binding Context not found");
             }
@@ -84,9 +81,7 @@ sap.ui.define([
             var oSelectedProduct = oModel.getProperty("/selectedProduct");
             if (oSelectedProduct) {
                 // Effettua l'aggiornamento dei dati
-                // Esempio: oSelectedProduct.name = "Nuovo nome";
-                oModel.refresh(); // Aggiorna la vista
-                MessageToast.show("Seleziona un prodotto da modificare");
+                MessageToast.show("Prodotto aggiornato");
             } else {
                 MessageToast.show("Seleziona un prodotto da modificare");
             }
@@ -102,7 +97,6 @@ sap.ui.define([
                     aProducts.splice(nIndex, 1);
                     oModel.setProperty("/data", aProducts);
                     oModel.setProperty("/selectedProduct", null); // Deseleziona il prodotto
-                    oModel.refresh(); // Aggiorna la vista
                     MessageToast.show("Prodotto eliminato");
                 }
             } else {
@@ -120,21 +114,59 @@ sap.ui.define([
                 MessageToast.show("Non ci sono modifiche da salvare");
             }
         },
+
         onSearchProduct: function (oEvent) {
-            var sQuery = oEvent.getParameter("query");
+            var sQuery = oEvent.getParameter("newValue");
             var oModel = this.getView().getModel("data");
             var aProducts = oModel.getProperty("/data");
             var aFilteredProducts = aProducts.filter(function (oProduct) {
-                // Effettua la ricerca nel campo 'name' del prodotto
-                return oProduct.name.toLowerCase().includes(sQuery.toLowerCase());
+                // Effettua la ricerca nel campo 'name' del prodotto solo se è definito
+                if (oProduct.name && sQuery) {
+                    return oProduct.name.toLowerCase().includes(sQuery.toLowerCase());
+                } else {
+                    return false;
+                }
             });
-            oModel.setProperty("/filteredData", aFilteredProducts);
-        }
-        
-        
-        
+            oModel.setProperty("/searchResults", aFilteredProducts);
+        },
 
-        
-        
+        onSearchItemSelected: function (oEvent) {
+            var oSelectedItem = oEvent.getSource();
+            var oContext = oSelectedItem.getBindingContext("data");
+            if (oContext) {
+                var oData = oContext.getObject();
+                var oProductModel = this.getView().getModel("data");
+                oProductModel.setProperty("/selectedProduct", oData);
+            } else {
+                console.error("Binding Context not found");
+            }
+        },
+        onSortProducts: function () {
+            var oModel = this.getView().getModel("data");
+            var aProducts = oModel.getProperty("/data");
+
+            // Ordinamento dei prodotti per nome (in ordine alfabetico)
+            aProducts.sort(function (a, b) {
+                var nameA = a.name.toLowerCase();
+                var nameB = b.name.toLowerCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            // Aggiornamento del modello con la nuova sequenza dei prodotti
+            oModel.setProperty("/data", aProducts);
+
+            MessageToast.show("Prodotti ordinati per nome");
+        },
+        formatPrice: function (value, currency) {
+            var oCurrencyType = new sap.ui.model.type.Currency();
+            return oCurrencyType.formatValue([value, currency], "string");
+        },
+
     });
 });
