@@ -4,7 +4,7 @@ sap.ui.define([
     "sap/ui/core/routing/Router",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/type/Currency"
-], function (Controller, MessageToast, Router, JSONModel,) {
+], function (Controller, MessageToast, Router, JSONModel, CurrencyType) {
     "use strict";
 
     return Controller.extend("project1.controller.View1", {
@@ -61,7 +61,8 @@ sap.ui.define([
                 price: sNewProductPrice,
                 description: sNewProductDescription,
                 quantity: sNewProductQuantity,
-                color: sNewProductColor
+                color: sNewProductColor,
+                currency: "EUR" // Imposta la valuta desiderata
             };
             aProducts.push(oNewProduct);
             oModel.setProperty("/data", aProducts);
@@ -75,6 +76,7 @@ sap.ui.define([
             this.byId("newProductQuantity").setValue("");
             this.byId("newProductColor").setValue("");
         },
+
 
         onUpdateProduct: function () {
             var oModel = this.getView().getModel("data");
@@ -167,6 +169,8 @@ sap.ui.define([
             var oCurrencyType = new sap.ui.model.type.Currency();
             return oCurrencyType.formatValue([value, currency], "string");
         },
+
+
 
     });
 });

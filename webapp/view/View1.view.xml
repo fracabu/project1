@@ -6,9 +6,10 @@
     <Page title="{i18n>titleView1}">
         <content>
             <Button text="Message" press="showMessageOnClick" class="sapUiSmallMargin" />
-            <Button text="NavTo" press="navToViewOnClick" class="sapUiSmallMargin" />
+            <Button text="Project List" press="navToViewOnClick" class="sapUiSmallMargin" />
             <Button text="Ordina Prodotti" press="onSortProducts" class="sapUiSmallMargin" />
-            <Button text="Filtra Prodotti" press="onOpenFilterDialog" class="sapUiSmallMargin" />
+            <!-- <Button text="Filtra Prodotti" press="onOpenFilterDialog" class="sapUiSmallMargin"
+            /> -->
             <!-- lista prodotti da data.json -->
             <List items="{data>/data}">
                 <ObjectListItem
@@ -16,11 +17,29 @@
                     type="Active"
                     title="{data>name}"
                     number="{
-            parts: [{path: 'data>price'}, {path: 'data>currency'}],
+            parts: [
+                { path: 'data>price' },
+                { path: 'data>currency' }
+            ],
             formatter: '.formatPrice'
         }"
-                />
+                    icon="{data>icon}"
+                >
+                    <attributes>
+                        <ObjectAttribute title="Color" text="{data>color}" />
+                        <ObjectAttribute title="Quantity" text="{data>quantity}" />
+                        <ObjectAttribute title="Description" text="{data>description}" />
+                    
+                    </attributes>
+                    
+                        
+                    
+
+
+                </ObjectListItem>
             </List>
+
+
             <!-- Panel ricerca prodotti -->
             <Panel headerText="{i18n>searchProductsPanel}" class="sapUiResponsiveMargin"
                 width="auto">
@@ -79,6 +98,6 @@
                 <Button icon="sap-icon://save" press="onSaveProduct" class="sapUiSmallMargin" />
             </Panel>
         </content>
-        
+
     </Page>
 </mvc:View>

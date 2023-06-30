@@ -11,77 +11,65 @@
                 icon="sap-icon://close-command-field"
                 press="onGoBackPress"
                 class="sapUiSmallMargin" />
+            <Panel>
+                <List
+                    id="projectList"
+                    items="{projects>/projects}"
+                    growing="true"
+                    growingThreshold="5"
+                    selectionChange="onSelectionChange">
+                    <ObjectListItem
+                        press="onItemSelected"
+                        type="Active"
+                        title="{projects>projectName}"
+                        number="{projects>projectNumber}"
+                        numberUnit="{projects>fileType}">
+                        <attributes>
+                            <ObjectAttribute title="Opportunity Number"
+                                text="{projects>opportunityNumber}" />
+                            <ObjectAttribute title="Project Name" text="{projects>projectName}" />
+                            <ObjectAttribute title="Sales Employee" text="{projects>salesEmployee}" />
+                            <ObjectAttribute title="Coordinator" text="{projects>coordinator}" />
+                            <ObjectAttribute title="Company Code" text="{projects>companyCode}" />
+                            <ObjectAttribute title="Plant" text="{projects>plant}" />
+                        </attributes>
+                    </ObjectListItem>
+                </List>
+            </Panel>
 
-            <layout:Grid defaultSpan="XL2 L2 M2 S12" >
-                <form:Form id="myForm"
-                    editable="false"
-                    xmlns:mvc="sap.ui.core.mvc"
-                    xmlns="sap.m"
-                    xmlns:f="sap.f"
-                    xmlns:core="sap.ui.core"
-                    xmlns:form="sap.ui.layout.form"
-                    xmlns:layout="sap.ui.layout">
-                    <form:layout>
-                        <form:ResponsiveGridLayout
-                            labelSpanXL="6"
-                            labelSpanL="5"
-                            labelSpanM="2"
-                            labelSpanS="12"
-                            adjustLabelSpan="false"
-                            emptySpanXL="0"
-                            emptySpanL="0"
-                            emptySpanM="0"
-                            emptySpanS="0"
-                            columnsXL="2"
-                            columnsL="6"
-                            columnsM="3"
-                            singleContainerFullSize="false" />
-                    </form:layout>
-                    <form:formContainers >
-                        <form:FormContainer title="Name">
-                            <form:formElements>
-                                <form:FormElement>
-                                    <form:fields>
-                                        <Input value="{/name}"  />
-                                    </form:fields>
-                                </form:FormElement>
-                            </form:formElements>
-                        </form:FormContainer>
-                        <form:FormContainer title="Surname">
-                            <form:formElements>
-                                <form:FormElement>
-                                    <form:fields>
-                                        <Input value="{/surname}" />
-                                    </form:fields>
-                                </form:FormElement>
-                            </form:formElements>
-                        </form:FormContainer>
-                        <form:FormContainer title="Email">
-                            <form:formElements>
-                                <form:FormElement>
-                                    <form:fields>
-                                        <Input value="{/email}" />
-                                    </form:fields>
-                                </form:FormElement>
-                            </form:formElements>
-                        </form:FormContainer>
-                        <form:FormContainer>
-                            <form:formElements>
-                                <form:FormElement>
-                                    <layout:Grid>
-                                        <layout:content>
-                                            <Button icon="sap-icon://save"
-                                                press="onSavePress"
-                                                class="sapUiSmallMargin"
-                                                width="100px" />
-                                        </layout:content>
-                                    </layout:Grid>
-                                </form:FormElement>
-                            </form:formElements>
-                        </form:FormContainer>
-                    </form:formContainers>
-                </form:Form>
-            </layout:Grid>
+            <Toolbar visible="{= ${projects>/projects}.length > 5 }">
+                <ToolbarSpacer />
+            </Toolbar>
+
+            <Panel id="projectDetails" headerText="{i18n>projectDetails}"
+                class="sapUiResponsiveMargin" width="auto">
+                <form:SimpleForm layout="ColumnLayout"
+                    binding="{projects>/selectedProduct}">
+                    <Label text="{i18n>opportunityNumberLabel}" />
+                    <Input value="{projects>opportunityNumber}" editable="false" />
+                    <Label text="{i18n>nameLabel}" />
+                    <Input value="{projects>projectName}" editable="false" />
+                    <Label text="{i18n>projectNumberLabel}" />
+                    <Input value="{projects>projectNumber}" editable="false" />
+                    <Label text="{i18n>fileTypeLabel}" />
+                    <Input value="{projects>fileType}" editable="false" />
+                    <Label text="{i18n>coordinatorLabel}" />
+                    <Input value="{projects>coordinator}" editable="false" />
+                    <Label text="{i18n>salesEmployeeLabel}" />
+                    <Input value="{projects>salesEmployee}" editable="false" />
+                    <Label text="{i18n>companyCodeLabel}" />
+                    <Input value="{projects>companyCode}" editable="false" />
+                    <Label text="{i18n>plantLabel}" />
+                    <Input value="{projects>plant}" editable="false" />
+                </form:SimpleForm>
+            </Panel>
+            <Panel id="manageProject" headerText="{i18n>manageProject}"
+                class="sapUiResponsiveMargin" width="auto">
+                <Button icon="sap-icon://add" press="onAddProject" class="sapUiSmallMargin" />
+                <Button icon="sap-icon://edit" press="onUpdateProject" class="sapUiSmallMargin" />
+                <Button icon="sap-icon://delete" press="onDeleteProject" class="sapUiSmallMargin" />
+                <Button icon="sap-icon://save" press="onSaveProject" class="sapUiSmallMargin" />
+            </Panel>
         </content>
     </Page>
 </mvc:View>
